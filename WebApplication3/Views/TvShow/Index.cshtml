@@ -13,15 +13,14 @@
   {
     if (Model.SearchResults != null)
     {
-
-    <div>
-      <ul>
-        @foreach (var searchResult in Model.SearchResults)
-        {
-          <li>@searchResult.Show.Name</li>
-        }
-      </ul>
-    </div>
+      <div>
+        <ul>
+          @foreach (var searchResult in Model.SearchResults)
+          {
+            <li>@searchResult.Show.Name</li>
+          }
+        </ul>
+      </div>
     }
   }
 }
