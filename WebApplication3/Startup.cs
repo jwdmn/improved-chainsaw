@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,10 +36,16 @@ namespace WebApplication3
 
       services.AddAuthentication(); // kanske bort?
 
+      services.AddAutoMapper();
+
       services.AddDbContext<TvShowContext>(cfg =>
        {
          cfg.UseSqlServer(config.GetConnectionString("TvConnectionString"));
        });
+
+      services.AddScoped<ApiHandler>();
+
+      services.AddScoped<ITvShowRepository, TvShowRepository>();
 
       services.AddMvc();
     }

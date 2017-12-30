@@ -11,7 +11,7 @@ namespace WebApplication3
    
     public class ApiHandler
     {
-        public static SearchResult[] SearchForShow(string searchString)
+        public SearchResult[] SearchForShow(string searchString)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://api.tvmaze.com/search/shows?q=" + searchString);
             string responseString = string.Empty;
@@ -39,7 +39,7 @@ namespace WebApplication3
             return searchResults;
         }
 
-        public static Episode[] GetEmbeddedEpisodes(int id)
+        public Episode[] GetEmbeddedEpisodes(int id)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://api.tvmaze.com/shows/" + id + "/episodes");
             string responseString = string.Empty;
@@ -67,7 +67,7 @@ namespace WebApplication3
             return episodes;
         }
 
-        public static Episode[] GetShowsEpisodes(int id)
+        public Episode[] GetShowsEpisodes(int id)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://api.tvmaze.com/shows/" + id + "/episodes");
             string responseString = string.Empty;
@@ -96,7 +96,7 @@ namespace WebApplication3
 
         }
 
-        public static TvShow GetTvShowAndEpisodeDetails(int id)
+        public TvShow GetTvShowAndEpisodeDetails(int id)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"http://api.tvmaze.com/shows/{id}?embed=episodes");
             string responseString = string.Empty;
@@ -124,7 +124,7 @@ namespace WebApplication3
             return tvShow;
         }
 
-        public static Episode GetLatestEpisode(int? id)
+        public Episode GetLatestEpisode(int? id)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://api.tvmaze.com/shows/" + id + "/episodes");
             string responseString = string.Empty;
@@ -152,19 +152,19 @@ namespace WebApplication3
             return episodes[episodes.Length - 1];
         }
 
-        public static bool CheckIfReleasedToday(int? id)
+        public bool CheckIfReleasedToday(int? id)
         {
-            Episode e = ApiHandler.GetLatestEpisode(id);
+            Episode e = GetLatestEpisode(id);
             if (e.Airdate.Value.ToShortDateString().Equals(DateTime.Now.ToShortDateString()))
                 return true;
             else
                 return false;
         }
 
-        public static bool CheckIfAnyEpisodeReleasedToday(int? id)
+        public bool CheckIfAnyEpisodeReleasedToday(int? id)
         {
             bool releasedToday = false;
-            Episode[] episodes = ApiHandler.GetShowsEpisodes((int)id);
+            Episode[] episodes = GetShowsEpisodes((int)id);
 
             foreach (var episode in episodes)
             {
@@ -178,7 +178,5 @@ namespace WebApplication3
 
             return releasedToday;
         }
-
-
     }
 }
