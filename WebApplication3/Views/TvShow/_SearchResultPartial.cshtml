@@ -1,0 +1,11 @@
+﻿@model SearchResultViewModel[]
+
+  @if (Model != null)
+  {
+    <ul>
+      @foreach (var item in Model)
+      {
+        <li>@item.Show.Name</li>
+      }
+    </ul>
+  }

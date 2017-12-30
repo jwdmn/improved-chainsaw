@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApplication3.Data;
+using WebApplication3.Models.ViewModels;
 
 namespace WebApplication3.Controllers
 {
@@ -22,9 +23,20 @@ namespace WebApplication3.Controllers
       return View();
     }
 
-    public IActionResult Search()
+    [HttpGet]
+    public IActionResult Search(TvShowViewModel model)
     {
-      return View();
+      if (ModelState.IsValid)
+      {
+        var result = repository.SearchForShow(model.SearchQuery);
+        model.SearchResults = result;
+
+        return View(nameof(Index), model);
+      }
+      else
+      {
+        return View();
+      }
     }
   }
 }

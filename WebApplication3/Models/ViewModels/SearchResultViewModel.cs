@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace WebApplication3.Models.ViewModels
 {
-  public class TvShowViewModel
+  public class SearchResultViewModel
   {
-    public string SearchQuery { get; set; }
-    public SearchResultViewModel[] SearchResults { get; set; }
+    public float? Score { get; set; }
+    public TvShow Show { get; set; }
   }
 }

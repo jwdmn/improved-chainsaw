@@ -1,1 +1,27 @@
-﻿
+﻿@model TvShowViewModel
+@if (true)
+{
+  <div>
+    <form>
+      <label asp-for="SearchQuery">Search for Tv Shows:</label>
+      <input asp-for="SearchQuery" />
+      <input type="submit" asp-action="Search" />
+    </form>
+  </div>
+
+  @if (Model != null)
+  {
+    if (Model.SearchResults != null)
+    {
+
+    <div>
+      <ul>
+        @foreach (var searchResult in Model.SearchResults)
+        {
+          <li>@searchResult.Show.Name</li>
+        }
+      </ul>
+    </div>
+    }
+  }
+}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApplication3.Models.ViewModels;
 
 namespace WebApplication3.Data
 {
@@ -17,7 +18,7 @@ namespace WebApplication3.Data
       this.apiHandler = apiHandler;
     }
 
-    public SearchResult[] SearchForShow(string searchQuery)
+    public SearchResultViewModel[] SearchForShow(string searchQuery)
     {
       return apiHandler.SearchForShow(searchQuery);
     }
