@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebApplication3.Data;
 using WebApplication3.Data.Entities;
+using WebApplication3.Models;
 
 namespace WebApplication3
 {
@@ -28,7 +29,7 @@ namespace WebApplication3
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddIdentity<AppUser, IdentityRole>(cfg =>
+      services.AddIdentity<ApplicationUser, IdentityRole>(cfg =>
       {
         cfg.User.RequireUniqueEmail = true;
       })
