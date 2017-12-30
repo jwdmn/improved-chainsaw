@@ -5,16 +5,41 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebApplication3.Data;
+using WebApplication3.Data.Entities;
 
 namespace WebApplication3
 {
   public class Startup
   {
+    private readonly IConfiguration config;
+
+    public Startup(IConfiguration config)
+    {
+      this.config = config;
+    }
+
     // This method gets called by the runtime. Use this method to add services to the container.
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddIdentity<AppUser, IdentityRole>(cfg =>
+      {
+        cfg.User.RequireUniqueEmail = true;
+      })
+        .AddEntityFrameworkStores<TvShowContext>();
+
+      services.AddAuthentication(); // kanske bort?
+
+      services.AddDbContext<TvShowContext>(cfg =>
+       {
+         cfg.UseSqlServer(config.GetConnectionString("TvConnectionString"));
+       });
+
       services.AddMvc();
     }
 
@@ -29,7 +54,7 @@ namespace WebApplication3
 
       app.UseStaticFiles();
 
-      //app.UseAuthentication();
+      app.UseAuthentication();
 
       app.UseMvc(cfg =>
       {

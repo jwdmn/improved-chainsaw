@@ -7,17 +7,10 @@ using System.Threading.Tasks;
 
 namespace WebApplication3.Controllers
 {
-  public class AppController : Controller
+  public class TvShowController : Controller
   {
     public IActionResult Index()
     {
-      return View();
-    }
-
-    public IActionResult About()
-    {
-      ViewBag.Title = "About Us";
-
       return View();
     }
   }

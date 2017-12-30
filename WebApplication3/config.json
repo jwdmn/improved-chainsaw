@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "TvConnectionString": "server=(localdb)\\ProjectsV13;Database=FoShowDb;Integrated Security=true;MultipleActiveResultSets=true;"
+  }
+}
