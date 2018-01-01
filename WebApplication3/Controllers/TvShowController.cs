@@ -148,8 +148,18 @@ namespace WebApplication3.Controllers
           if (user.FollowedShowIds == null)
             user.FollowedShowIds = new List<TvShowId>();
 
-          if (!user.FollowedShowIds.Contains(tvShowToFollowId))
+          //if (!user.FollowedShowIds.Contains(tvShowToFollowId))
+          //  user.FollowedShowIds.Add(tvShowToFollowId);
+
+          #region dublettkontroll
+          bool alreadyAdded = false;
+          foreach (var show in user.FollowedShowIds)
+            if (show.ShowId == tvShowId)
+              alreadyAdded = true;
+
+          if (!alreadyAdded)
             user.FollowedShowIds.Add(tvShowToFollowId);
+          #endregion
 
           repository.SaveAll();
         }
