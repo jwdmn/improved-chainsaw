@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApplication3.Data;
+using WebApplication3.Data.Entities;
 using WebApplication3.Models;
 using WebApplication3.Models.ViewModels;
 
@@ -104,6 +105,27 @@ namespace WebApplication3.Controllers
     //  return View();
     //}
 
+    #region fungerar nästan, men kan itne appenda tv-showen. gör nytt försök med att endast spara tvShowId på usern
+    //  [Authorize]
+    //  public async Task<IActionResult> FollowShow(int tvShowId)
+    //  {
+    //    if (ModelState.IsValid)
+    //    {
+    //      if (this.User.Identity.IsAuthenticated)
+    //      {
+    //        var tmp = HttpContext.User;
+    //        var user = await userManager.GetUserAsync(tmp);
+    //        var tvShow = repository.GetShowAndEpisodeDetailsByTvMazeId(tvShowId);
+
+    //        user.FollowedShows.Append(tvShow);
+    //      }
+    //    }
+
+    //    return View();
+    //  }
+    //}
+    #endregion
+
     [Authorize]
     public async Task<IActionResult> FollowShow(int tvShowId)
     {
@@ -113,9 +135,9 @@ namespace WebApplication3.Controllers
         {
           var tmp = HttpContext.User;
           var user = await userManager.GetUserAsync(tmp);
-          var tvShow = repository.GetShowAndEpisodeDetailsByTvMazeId(tvShowId);
+          TvShowId tvShowToFollowId = new TvShowId(tvShowId);
 
-          user.FollowedShows.Append(tvShow);
+          user.FollowedShowIds.Add(tvShowToFollowId);
         }
       }
 

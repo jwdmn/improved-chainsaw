@@ -11,7 +11,7 @@ using WebApplication3.Data;
 namespace WebApplication3.Migrations
 {
     [DbContext(typeof(TvShowContext))]
-    [Migration("20171231081302_Identity")]
+    [Migration("20180101121507_Identity")]
     partial class Identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,6 +127,22 @@ namespace WebApplication3.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("WebApplication3.Data.Entities.TvShowId", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<int>("ShowId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("TvShowId");
                 });
 
             modelBuilder.Entity("WebApplication3.Models.ApplicationUser", b =>
@@ -253,6 +269,13 @@ namespace WebApplication3.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WebApplication3.Data.Entities.TvShowId", b =>
+                {
+                    b.HasOne("WebApplication3.Models.ApplicationUser")
+                        .WithMany("FollowedShowIds")
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("WebApplication3.TvShow", b =>

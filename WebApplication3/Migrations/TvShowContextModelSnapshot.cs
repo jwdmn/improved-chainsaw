@@ -128,6 +128,22 @@ namespace WebApplication3.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("WebApplication3.Data.Entities.TvShowId", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<int>("ShowId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("TvShowId");
+                });
+
             modelBuilder.Entity("WebApplication3.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -252,6 +268,13 @@ namespace WebApplication3.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WebApplication3.Data.Entities.TvShowId", b =>
+                {
+                    b.HasOne("WebApplication3.Models.ApplicationUser")
+                        .WithMany("FollowedShowIds")
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("WebApplication3.TvShow", b =>
