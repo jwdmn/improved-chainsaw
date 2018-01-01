@@ -105,7 +105,7 @@ namespace WebApplication3.Controllers
     //}
 
     [Authorize]
-    public async Task<IActionResult> FollowShow(TvShow model)
+    public async Task<IActionResult> FollowShow(int tvShowId)
     {
       if (ModelState.IsValid)
       {
@@ -113,8 +113,9 @@ namespace WebApplication3.Controllers
         {
           var tmp = HttpContext.User;
           var user = await userManager.GetUserAsync(tmp);
+          var tvShow = repository.GetShowAndEpisodeDetailsByTvMazeId(tvShowId);
 
-          user.FollowedShows.Append(model);
+          user.FollowedShows.Append(tvShow);
         }
       }
 
