@@ -128,23 +128,7 @@ namespace WebApplication3.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("WebApplication3.Data.Entities.TvShowId", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ApplicationUserId");
-
-                    b.Property<int>("ShowId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("TvShowId");
-                });
-
-            modelBuilder.Entity("WebApplication3.Models.ApplicationUser", b =>
+            modelBuilder.Entity("WebApplication3.Data.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -195,12 +179,26 @@ namespace WebApplication3.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("WebApplication3.TvShow", b =>
+            modelBuilder.Entity("WebApplication3.Data.Entities.TvShowId", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ApplicationUserId");
+
+                    b.Property<int>("ShowId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("TvShowId");
+                });
+
+            modelBuilder.Entity("WebApplication3.TvShow", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Language");
 
@@ -220,8 +218,6 @@ namespace WebApplication3.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.ToTable("TvShow");
                 });
 
@@ -235,7 +231,7 @@ namespace WebApplication3.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WebApplication3.Models.ApplicationUser")
+                    b.HasOne("WebApplication3.Data.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -243,7 +239,7 @@ namespace WebApplication3.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WebApplication3.Models.ApplicationUser")
+                    b.HasOne("WebApplication3.Data.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -256,7 +252,7 @@ namespace WebApplication3.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("WebApplication3.Models.ApplicationUser")
+                    b.HasOne("WebApplication3.Data.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -264,7 +260,7 @@ namespace WebApplication3.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WebApplication3.Models.ApplicationUser")
+                    b.HasOne("WebApplication3.Data.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -272,15 +268,8 @@ namespace WebApplication3.Migrations
 
             modelBuilder.Entity("WebApplication3.Data.Entities.TvShowId", b =>
                 {
-                    b.HasOne("WebApplication3.Models.ApplicationUser")
+                    b.HasOne("WebApplication3.Data.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany("FollowedShowIds")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
-            modelBuilder.Entity("WebApplication3.TvShow", b =>
-                {
-                    b.HasOne("WebApplication3.Models.ApplicationUser")
-                        .WithMany("FollowedShows")
                         .HasForeignKey("ApplicationUserId");
                 });
 #pragma warning restore 612, 618

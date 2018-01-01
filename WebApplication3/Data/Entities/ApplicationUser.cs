@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApplication3.Data.Entities;
 
 namespace WebApplication3.Data.Entities
 {
-  public class AppUser : IdentityUser
+  public class ApplicationUser : IdentityUser
   {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
+    public ApplicationUser()
+    {
+
+    }
+
+    public List<TvShowId> FollowedShowIds { get; set; }
   }
 }

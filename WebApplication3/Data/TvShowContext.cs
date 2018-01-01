@@ -17,5 +17,7 @@ namespace WebApplication3.Data
     }
 
     public DbSet<TvShow> TvShow { get; set; }
+    public DbSet<ApplicationUser> ApplicationUser { get; set; }
+    public DbSet<TvShowId> TvShowId { get; set; }
   }
 }

@@ -140,6 +140,9 @@ namespace WebApplication3.Controllers
         {
           var tmp = HttpContext.User;
           var user = await userManager.GetUserAsync(tmp);
+
+          user.FollowedShowIds = repository.GetUsersFollowedShowIds(user.Id);
+
           TvShowId tvShowToFollowId = new TvShowId(tvShowId);
 
           if (user.FollowedShowIds == null)
@@ -152,7 +155,7 @@ namespace WebApplication3.Controllers
         }
       }
 
-      return View();
+      return View(nameof(AppController.Index));
     }
 
     [HttpGet]

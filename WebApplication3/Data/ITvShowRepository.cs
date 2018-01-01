@@ -1,4 +1,6 @@
-﻿using WebApplication3.Models.ViewModels;
+﻿using System.Collections.Generic;
+using WebApplication3.Data.Entities;
+using WebApplication3.Models.ViewModels;
 
 namespace WebApplication3.Data
 {
@@ -8,5 +10,6 @@ namespace WebApplication3.Data
 
     TvShow GetShowAndEpisodeDetailsByTvMazeId(int id);
     bool SaveAll();
+    List<TvShowId> GetUsersFollowedShowIds(string applicationUserId);
   }
 }
