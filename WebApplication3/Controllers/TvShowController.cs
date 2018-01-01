@@ -105,29 +105,9 @@ namespace WebApplication3.Controllers
       return View();
     }
 
-    #region fungerar nästan, men kan itne appenda tv-showen. gör nytt försök med att endast spara tvShowId på usern
-    //  [Authorize]
-    //  public async Task<IActionResult> FollowShow(int tvShowId)
-    //  {
-    //    if (ModelState.IsValid)
-    //    {
-    //      if (this.User.Identity.IsAuthenticated)
-    //      {
-    //        var tmp = HttpContext.User;
-    //        var user = await userManager.GetUserAsync(tmp);
-    //        var tvShow = repository.GetShowAndEpisodeDetailsByTvMazeId(tvShowId);
-
-    //        user.FollowedShows.Append(tvShow);
-    //      }
-    //    }
-
-    //    return View();
-    //  }
-    //}
-    #endregion
 
     /// <summary>
-    /// fungerar nästan, verkar inte spara usern persistent
+    /// fungerar
     /// </summary>
     /// <param name="tvShowId"></param>
     /// <returns></returns>
@@ -148,16 +128,13 @@ namespace WebApplication3.Controllers
           if (user.FollowedShowIds == null)
             user.FollowedShowIds = new List<TvShowId>();
 
-          //if (!user.FollowedShowIds.Contains(tvShowToFollowId))
-          //  user.FollowedShowIds.Add(tvShowToFollowId);
-
           #region dublettkontroll
-          bool alreadyAdded = false;
+          bool alreadyFollowing = false;
           foreach (var show in user.FollowedShowIds)
             if (show.ShowId == tvShowId)
-              alreadyAdded = true;
+              alreadyFollowing = true;
 
-          if (!alreadyAdded)
+          if (!alreadyFollowing)
             user.FollowedShowIds.Add(tvShowToFollowId);
           #endregion
 
@@ -168,7 +145,6 @@ namespace WebApplication3.Controllers
       return View(nameof(AppController.Index));
     }
 
-    [HttpGet]
     [Authorize]
     public async Task<IActionResult> UnFollowShow(int tvShowId)
     {
@@ -178,15 +154,24 @@ namespace WebApplication3.Controllers
         {
           var tmp = HttpContext.User;
           var user = await userManager.GetUserAsync(tmp);
-          TvShowId tvShowToFollowId = new TvShowId(tvShowId);
+          user.FollowedShowIds = repository.GetUsersFollowedShowIds(user.Id);
+          TvShowId tvShowToUnfollowId = new TvShowId(tvShowId);
+
+          bool alreadyFollowing = false;
 
           if (user.FollowedShowIds != null)
-            if (user.FollowedShowIds.Contains(tvShowToFollowId))
-              user.FollowedShowIds.RemoveAll(s => s.ShowId == tvShowToFollowId.ShowId);
+            foreach (var show in user.FollowedShowIds)
+              if (show.ShowId == tvShowToUnfollowId.ShowId)
+                alreadyFollowing = true;
+
+          if (alreadyFollowing)
+            user.FollowedShowIds.RemoveAll(x => x.ShowId == tvShowToUnfollowId.ShowId);
+
+          repository.SaveAll();
         }
       }
 
-      return View();
+      return View(nameof(AppController.Index));
     }
   }
 }

@@ -1,13 +1,17 @@
 ﻿@*@model SearchResultViewModel[]
 
-  <form asp-controller="TvShow" asp-action="FollowShow">
-    <ul>
-      @foreach (var item in Model)
-      {
-        <li>@item.Show.Name <input class="btn-success" type="submit" asp-action="FollowShow" /></li>
-      }
-    </ul>
-  </form>*@
+  <ul>
+    @foreach (var item in Model)
+    {
+      <li>
+        @item.Show.Name
+        <form asp-controller="TvShow" asp-action="FollowShow" asp-route-tvShowId="@item.Show.Id">
+          <input type="submit" class="btn-success" value="Follow" />
+          <input type="submit" asp-action="UnFollowShow" class="btn-warning" value="Unfollow" />
+        </form>
+      </li>
+    }
+  </ul>*@
 
 @model SearchResultViewModel[]
 
@@ -18,7 +22,10 @@
       @item.Show.Name
       <form asp-controller="TvShow" asp-action="FollowShow" asp-route-tvShowId="@item.Show.Id">
         <input type="submit" class="btn-success" value="Follow" />
-        <input type="submit" asp-action="UnFollowShow" class="btn-warning" value="Unfollow" />
+      </form>
+
+      <form asp-controller="TvShow" asp-action="UnfollowShow" asp-route-tvShowId="@item.Show.Id">
+        <input type="submit" class="btn-warning" value="Unfollow" />
       </form>
     </li>
   }
