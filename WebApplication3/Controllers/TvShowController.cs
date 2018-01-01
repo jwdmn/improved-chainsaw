@@ -137,7 +137,10 @@ namespace WebApplication3.Controllers
           var user = await userManager.GetUserAsync(tmp);
           TvShowId tvShowToFollowId = new TvShowId(tvShowId);
 
-          user.FollowedShowIds.Add(tvShowToFollowId);
+          if (user.FollowedShowIds == null)
+            user.FollowedShowIds = new List<TvShowId>();
+          if (!user.FollowedShowIds.Contains(tvShowToFollowId))
+            user.FollowedShowIds.Add(tvShowToFollowId);
         }
       }
 
