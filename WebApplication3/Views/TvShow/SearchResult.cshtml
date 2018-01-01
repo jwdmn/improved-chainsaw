@@ -16,8 +16,9 @@
   {
     <li>
       @item.Show.Name
-      <form asp-controller="TvShow" asp-action="FollowShow" asp-route-tvShowId="@item.Show.Id" >
-        <input type="submit" class="btn btn-success" />
+      <form asp-controller="TvShow" asp-action="FollowShow" asp-route-tvShowId="@item.Show.Id">
+        <input type="submit" class="btn-success" value="Follow" />
+        <input type="submit" asp-action="UnFollowShow" class="btn-warning" value="Unfollow" />
       </form>
     </li>
   }

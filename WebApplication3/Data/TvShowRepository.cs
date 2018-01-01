@@ -28,5 +28,10 @@ namespace WebApplication3.Data
     {
       return apiHandler.SearchForShow(searchQuery);
     }
+
+    public bool SaveAll()
+    {
+      return ctx.SaveChanges() > 0;
+    }
   }
 }

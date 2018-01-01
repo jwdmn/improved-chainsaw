@@ -7,5 +7,6 @@ namespace WebApplication3.Data
     SearchResultViewModel[] SearchForTvShow(string searchQuery);
 
     TvShow GetShowAndEpisodeDetailsByTvMazeId(int id);
+    bool SaveAll();
   }
 }

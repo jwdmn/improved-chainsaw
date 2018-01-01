@@ -92,18 +92,18 @@ namespace WebApplication3.Controllers
     //  return View();
     //}
 
-    //[HttpGet]
-    //[Authorize]
-    //public async Task<IActionResult> FollowedShows()
-    //{
-    //  if (this.User.Identity.IsAuthenticated)
-    //  {
-    //    var tmp = HttpContext.User;
-    //    var user = await userManager.GetUserAsync(tmp);
-    //  }
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> FollowedShows()
+    {
+      if (this.User.Identity.IsAuthenticated)
+      {
+        var tmp = HttpContext.User;
+        var user = await userManager.GetUserAsync(tmp);
+      }
 
-    //  return View();
-    //}
+      return View();
+    }
 
     #region fungerar nästan, men kan itne appenda tv-showen. gör nytt försök med att endast spara tvShowId på usern
     //  [Authorize]
@@ -126,6 +126,11 @@ namespace WebApplication3.Controllers
     //}
     #endregion
 
+    /// <summary>
+    /// fungerar nästan, verkar inte spara usern persistent
+    /// </summary>
+    /// <param name="tvShowId"></param>
+    /// <returns></returns>
     [Authorize]
     public async Task<IActionResult> FollowShow(int tvShowId)
     {
@@ -139,8 +144,32 @@ namespace WebApplication3.Controllers
 
           if (user.FollowedShowIds == null)
             user.FollowedShowIds = new List<TvShowId>();
+
           if (!user.FollowedShowIds.Contains(tvShowToFollowId))
             user.FollowedShowIds.Add(tvShowToFollowId);
+
+          repository.SaveAll();
+        }
+      }
+
+      return View();
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> UnFollowShow(int tvShowId)
+    {
+      if (ModelState.IsValid)
+      {
+        if (this.User.Identity.IsAuthenticated)
+        {
+          var tmp = HttpContext.User;
+          var user = await userManager.GetUserAsync(tmp);
+          TvShowId tvShowToFollowId = new TvShowId(tvShowId);
+
+          if (user.FollowedShowIds != null)
+            if (user.FollowedShowIds.Contains(tvShowToFollowId))
+              user.FollowedShowIds.RemoveAll(s => s.ShowId == tvShowToFollowId.ShowId);
         }
       }
 
