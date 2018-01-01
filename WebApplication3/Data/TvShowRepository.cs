@@ -18,7 +18,13 @@ namespace WebApplication3.Data
       this.apiHandler = apiHandler;
     }
 
-    public SearchResultViewModel[] SearchForShow(string searchQuery)
+    public TvShow GetShowAndEpisodeDetailsByTvMazeId(int id)
+    {
+      return apiHandler.GetTvShowAndEpisodeDetails(id);
+
+    }
+
+    public SearchResultViewModel[] SearchForTvShow(string searchQuery)
     {
       return apiHandler.SearchForShow(searchQuery);
     }

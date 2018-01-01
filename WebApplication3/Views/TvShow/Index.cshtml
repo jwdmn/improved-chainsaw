@@ -1,26 +1,40 @@
 ﻿@model TvShowViewModel
 @if (true)
 {
-  <div>
-    <form>
-      <label asp-for="SearchQuery">Search for Tv Shows:</label>
-      <input asp-for="SearchQuery" />
-      <input type="submit" asp-action="Search" />
-    </form>
-  </div>
+  @*<div>
+      <form>
+        <label asp-for="SearchQuery">Search for Tv Shows:</label>
+        <input asp-for="SearchQuery" />
+        <input type="submit" asp-action="Search" asp-controller="TvShow" />
+      </form>
+    </div>*@
 
-  @if (Model != null)
-  {
-    if (Model.SearchResults != null)
+  @*@if (Model != null)
     {
-      <div>
-        <ul>
-          @foreach (var searchResult in Model.SearchResults)
-          {
-            <li>@searchResult.Show.Name</li>
-          }
-        </ul>
-      </div>
-    }
-  }
+      if (Model.SearchResults != null)
+      {
+        <div>
+          <ul>
+            @foreach (var searchResult in Model.SearchResults)
+            {
+              <li>
+                @searchResult.Show.Name
+                <div>
+                  <a asp-action="Follow">Follow</a>
+                </div>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    }*@
+
+  <div>
+    <label asp-for="SearchQuery">Search for Tv Shows:</label>
+    <input asp-for="SearchQuery" id="searchBox" />
+    <button class="btn btn-success" onclick="getSearchResults()">Search</button>
+  </div>
+  <div id="searchResultsExpander">
+    @*The search results expand in this section*@
+  </div>
 }

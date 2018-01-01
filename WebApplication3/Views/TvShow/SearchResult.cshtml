@@ -1,0 +1,24 @@
+﻿@*@model SearchResultViewModel[]
+
+  <form asp-controller="TvShow" asp-action="FollowShow">
+    <ul>
+      @foreach (var item in Model)
+      {
+        <li>@item.Show.Name <input class="btn-success" type="submit" asp-action="FollowShow" /></li>
+      }
+    </ul>
+  </form>*@
+
+@model SearchResultViewModel[]
+
+<ul>
+  @foreach (var item in Model)
+  {
+    <li>
+      @item.Show.Name
+      <form asp-controller="TvShow" asp-action="FollowShow" asp-route-model="@item.Show" >
+        <input type="submit" class="btn btn-success" />
+      </form>
+    </li>
+  }
+</ul>

@@ -4,6 +4,8 @@ namespace WebApplication3.Data
 {
   public interface ITvShowRepository
   {
-    SearchResultViewModel[] SearchForShow(string searchQuery);
+    SearchResultViewModel[] SearchForTvShow(string searchQuery);
+
+    TvShow GetShowAndEpisodeDetailsByTvMazeId(int id);
   }
 }

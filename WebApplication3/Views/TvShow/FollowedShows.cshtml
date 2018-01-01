@@ -1,0 +1,17 @@
+﻿@model FollowedShowsViewModel
+
+@if (true)
+{
+  if (Model != null)
+  {
+    @if (Model.FollowedShows != null)
+    {
+      <ul>
+        @foreach (var item in Model.FollowedShows)
+        {
+          <li>@item.Name</li>
+        }
+      </ul>
+    }
+  }
+}

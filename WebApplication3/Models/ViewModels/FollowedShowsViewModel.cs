@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace WebApplication3.Models.ViewModels
 {
-  public class TvShowViewModel : IEnumerable
+  public class FollowedShowsViewModel : IEnumerable
   {
-    public string SearchQuery { get; set; }
-    public SearchResultViewModel[] SearchResults { get; set; }
+    public ApplicationUser User { get; set; }
+    public TvShow[] FollowedShows { get; set; }
 
     public IEnumerator GetEnumerator()
     {

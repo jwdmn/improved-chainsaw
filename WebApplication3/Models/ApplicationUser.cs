@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace WebApplication3.Models
 {
-    public class ApplicationUser : IdentityUser
-    {
-        
-    }
+  public class ApplicationUser : IdentityUser
+  {
+    public IEnumerable<TvShow> FollowedShows { get; set; }
+  }
 }
