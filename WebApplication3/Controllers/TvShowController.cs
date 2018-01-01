@@ -30,38 +30,6 @@ namespace WebApplication3.Controllers
       return View();
     }
 
-    //[HttpGet]
-    //public IActionResult Search(TvShowViewModel model)
-    //{
-    //  if (ModelState.IsValid)
-    //  {
-    //    var result = repository.SearchForTvShow(model.SearchQuery);
-    //    model.SearchResults = result;
-
-    //    return View(nameof(Index), model);
-    //  }
-    //  else
-    //  {
-    //    return View();
-    //  }
-    //}
-
-    //[HttpPost]
-    //public IActionResult Search(TvShowViewModel model)
-    //{
-    //  if (ModelState.IsValid)
-    //  {
-    //    var result = repository.SearchForTvShow(model.SearchQuery);
-    //    model.SearchResults = result;
-
-    //    return View(nameof(Index), model);
-    //  }
-    //  else
-    //  {
-    //    return View();
-    //  }
-    //}
-
     [HttpGet]
     public IActionResult Search(string searchQuery)
     {
@@ -69,28 +37,6 @@ namespace WebApplication3.Controllers
 
       return PartialView("SearchResult", result);
     }
-
-    //[HttpGet]
-    //[Authorize]
-    //public IActionResult FollowedShows()
-    //{
-    //  if (this.User.Identity.IsAuthenticated)
-    //  {
-    //    var tmp = HttpContext.User;
-    //    var user = userManager.GetUserAsync(tmp);
-
-    //    #region endast för test
-    //    ApplicationUser applicationUser = new ApplicationUser
-    //    {
-    //      UserName = user.Result.UserName,
-    //      FollowedShows = user.Result.FollowedShows,
-    //    };
-
-    //    #endregion
-    //  }
-
-    //  return View();
-    //}
 
     [HttpGet]
     [Authorize]
@@ -105,12 +51,6 @@ namespace WebApplication3.Controllers
       return View();
     }
 
-
-    /// <summary>
-    /// fungerar
-    /// </summary>
-    /// <param name="tvShowId"></param>
-    /// <returns></returns>
     [Authorize]
     public async Task<IActionResult> FollowShow(int tvShowId)
     {

@@ -9,3 +9,9 @@
         }
     });
 }
+
+document.querySelector("#searchBox").addEventListener("keyup", event => {
+    if (event.key !== "Enter") return; 
+    document.querySelector("#searchButton").click(); 
+    event.preventDefault();
+});
