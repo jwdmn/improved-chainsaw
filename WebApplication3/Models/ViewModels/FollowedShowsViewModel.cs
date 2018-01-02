@@ -8,14 +8,14 @@ using WebApplication3.Data.Entities;
 
 namespace WebApplication3.Models.ViewModels
 {
-  public class FollowedShowsViewModel : IEnumerable
+  public class FollowedShowsViewModel /*: IEnumerable*/
   {
     public ApplicationUser User { get; set; }
-    public TvShow[] FollowedShows { get; set; }
+    public List<TvShow> FollowedShows { get; set; }
 
-    public IEnumerator GetEnumerator()
-    {
-      return this.GetEnumerator();
-    }
+    //public IEnumerator GetEnumerator()
+    //{
+    //  return this.GetEnumerator();
+    //}
   }
 }

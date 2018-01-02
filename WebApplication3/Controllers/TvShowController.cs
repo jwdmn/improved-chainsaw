@@ -42,13 +42,22 @@ namespace WebApplication3.Controllers
     [Authorize]
     public async Task<IActionResult> FollowedShows()
     {
-      if (this.User.Identity.IsAuthenticated)
-      {
-        var tmp = HttpContext.User;
-        var user = await userManager.GetUserAsync(tmp);
-      }
+      var tmp = HttpContext.User;
+      var user = await userManager.GetUserAsync(tmp);
+      // todo snygga till denna kod, inte dry..
+      user.FollowedShowIds = repository.GetUsersFollowedShowIds(user.Id);
+      List<TvShow> followedShows = new List<TvShow>();
 
-      return View();
+      foreach (var show in user.FollowedShowIds)
+        followedShows.Add(repository.GetShowAndEpisodeDetailsByTvMazeId(show.ShowId));
+
+      FollowedShowsViewModel model = new FollowedShowsViewModel
+      {
+        User = user,
+        FollowedShows = followedShows
+      };
+
+      return View(model);
     }
 
     [Authorize]
