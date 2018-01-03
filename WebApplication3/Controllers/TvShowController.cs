@@ -30,13 +30,24 @@ namespace WebApplication3.Controllers
       return View();
     }
 
-    [HttpGet]
     public IActionResult Search(string searchQuery)
     {
-      var result = repository.SearchForTvShow(searchQuery);
+      var result = repository.SearchForTvShow(searchQuery).ToList();
 
-      return PartialView("SearchResult", result);
+      if (result != null)
+        return View(result);
+
+      return View(nameof(AppController.Index));
     }
+
+    // För ajax anrop
+    //[HttpGet]
+    //public IActionResult Search(string searchQuery)
+    //{
+    //  var result = repository.SearchForTvShow(searchQuery);
+
+    //  return PartialView("SearchResult", result);
+    //}
 
     [HttpGet]
     [Authorize]
