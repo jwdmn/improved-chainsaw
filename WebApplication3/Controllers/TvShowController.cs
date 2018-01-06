@@ -133,5 +133,13 @@ namespace WebApplication3.Controllers
 
       return View(nameof(AppController.Index));
     }
+
+    [HttpGet]
+    public IActionResult Details(int id)
+    {
+      var result = repository.GetShowAndEpisodeDetailsByTvMazeId(id);
+      return View(result);
+    }
   }
+
 }

@@ -1,6 +1,20 @@
 ﻿@model List<SearchResultViewModel>
 
-@foreach (var result in Model)
-{
-  <li>@result.Show.Name</li>
-}
+<ul class="media-list">
+  @foreach (var item in Model)
+  {
+    <li>
+      <div class="list-group-item">
+        <a href="~/TvShow/Details/@item.Show.Id" id="@item.Show.Id"><img src="@item.Show.Image.Medium" /></a>
+        @item.Show.Name
+        <form asp-controller="TvShow" asp-action="FollowShow" asp-route-tvShowId="@item.Show.Id">
+          <input type="submit" class="btn-success" value="Follow" />
+        </form>
+
+        <form asp-controller="TvShow" asp-action="UnfollowShow" asp-route-tvShowId="@item.Show.Id">
+          <input type="submit" class="btn-warning" value="Unfollow" />
+        </form>
+      </div>
+    </li>
+  }
+</ul>
